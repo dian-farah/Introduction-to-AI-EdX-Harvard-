@@ -9,8 +9,6 @@ X = "X"
 O = "O"
 EMPTY = None
 
-# print([EMPTY, X, X].count("X"))
-
 def initial_state():
     """
     Returns starting state of the board.
@@ -77,12 +75,9 @@ def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
-    # when there is no more EMPTY -> game over (return True)
-    # when there is a winner -> game over (return True)
     if winner(board) != None or len(actions(board)) == 0:
         return True
     return False
-
 
 
 def utility(board):
@@ -124,25 +119,19 @@ def vertical(board):
     #initialise the column count and the check set
     column = 0
     check = set()
-    
     #go through each column
-    while column < len(board[0]):
-        
+    while column < len(board[0]):        
         #go through each row
-        for i in range(len(board)):
-            
+        for i in range(len(board)):           
             #if the cell contains empty space, move onto the next column immediately and re-initialise the check set
             if board[i][column] == None:
                 check = set()
-                break
-                
+                break                
             #else add the cell value into the check set
-            check.update(board[i][column])
-        
+            check.update(board[i][column])       
         #return the value if the set only contains 1 value (either X or O) -> means that there is a column winner
         if len(check) == 1:
-            return check.pop()
-        
+            return check.pop()        
         #else, check the next column
         column += 1
             
@@ -156,8 +145,7 @@ def horizontal(board):
 def diagonal(board):
     #initialise the left to right diagonal set and right to left diagonal set
     left_to_right = set()
-    right_to_left = set()
-    
+    right_to_left = set()    
     #store the values in sets for left to right diagonal and right to left diagonal
     #if value is None, re-initialise the respective set and break the loop
     for i in range(len(board)):
@@ -169,8 +157,7 @@ def diagonal(board):
         if board[j][len(board[j])-(j+1)] == None:
             right_to_left = set()
             break
-        right_to_left.update(board[j][len(board[j])-(j+1)])
-        
+        right_to_left.update(board[j][len(board[j])-(j+1)])        
     #if length of set is 1, return value in set
     #else, return None
     if len(left_to_right) == 1:
